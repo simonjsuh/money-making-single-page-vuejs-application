@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <!-- jquery for Bootstrap -->
+  <script
+      src="https://code.jquery.com/jquery-3.1.1.min.js"
+      integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+      crossorigin="anonymous"></script>
+
+  <!-- bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
+
+  <!-- font awesome -->
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <!-- Vue.js script source -->
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+
+  <style>
+    .btn-xlarge {
+      padding: 18px 28px 45px 28px;
+      font-size: 22px;
+      line-height: normal;
+      -webkit-border-radius: 8px;
+      -moz-border-radius: 8px;
+      border-radius: 8px;
+    }
+  </style>
+  
+  <title>Document</title>
+</head>
+<body>
+<div class="container">
+  <div id="app">
+    <h1 class="text-center">Money Maker</h1>
+    
+    <div class="row">
+      <h2>Choose Occupation:</h2>
+      
+      <div class="row">
+        <div class="col-sm-4">
+          <button class="btn btn-primary btn-lg" @click="chooseOccupation('Doctor')">Doctor</button>
+        </div>
+        <div class="col-sm-4">
+          <button class="btn btn-primary btn-lg" @click="chooseOccupation('Lawyer')">Lawyer</button>
+        </div>
+        <div class="col-sm-4">
+          <button class="btn btn-primary btn-lg" @click="chooseOccupation('Software Developer')">Software Developer</button>
+        </div>
+      </div>
+        
+      <div class="row" style="margin-top: 20px;">
+        <div class="col-sm-4">
+          <button class="btn btn-primary btn-lg" @click="chooseOccupation('Accountant')">Accountant</button>
+        </div>
+        <div class="col-sm-4">
+          <button class="btn btn-primary btn-lg" @click="chooseOccupation('Bank Owner')">Bank Owner</button>
+        </div>
+        <div class="col-sm-4">
+          <button class="btn btn-primary btn-lg" @click="chooseOccupation('Physics Engineer')">Physics Engineer</button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row" style="margin-top: 20px;">
+      <h2 class="text-center">Occupation Chosen</h2>
+      <div class="row" style="text-align: center;">
+        <button class="btn btn-lg" style="background-color: green;">{{ chosenOccupation }}</button>
+        <br>
+        <h3>Annual Salary: ${{ chosenOccupationSalary }}</h3>
+      </div>
+    </div>
+    
+    <div class="row" style="margin-top: 30px;">
+      <div class="col-sm-4">
+        <button class="btn btn-success btn-lg" @click="work()">Work</button>
+      </div>
+      <div class="col-sm-4">
+        <h3>Earned Income: ${{ earnedIncome }}</h3>
+      </div>
+      <div class="col-sm-4">
+        <h3>Saved Income: ${{ savedIncome }}</h3>
+      </div>
+      
+      <div class="col-sm-12" style="margin-top: 20px;">
+        <button class="btn btn-primary form-control btn-xlarge" @click="save()">S A V E</button>
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+<script>
+  new Vue({
+    el: '#app',
+    data: {
+      occupations: [
+        {type: 'Doctor', salary: 500000},
+        {type: 'Lawyer', salary: 600000},
+        {type: 'Software Developer', salary: 1500000},
+        {type: 'Accountant', salary: 350000},
+        {type: 'Bank Owner', salary: 550000},
+        {type: 'Physics Engineer', salary: 330000},
+      ],
+      chosenOccupation: 'none chosen',
+      chosenOccupationSalary: 0,
+      earnedIncome: 0,
+      savedIncome: 0,
+    },
+    methods: {
+      chooseOccupation(job) {
+        this.chosenOccupation = job;
+        this.occupations.forEach(occupation => {
+          if (occupation.type == job) {
+            this.chosenOccupationSalary = occupation.salary;
+          }
+        });
+      },
+      work() {
+        this.earnedIncome = this.earnedIncome + this.chosenOccupationSalary;
+      },
+      save() {
+        this.savedIncome = this.savedIncome + this.earnedIncome + 1000;
+        this.earnedIncome = 0;
+      }
+    }
+  });
+</script>
+</body>
+</html>
